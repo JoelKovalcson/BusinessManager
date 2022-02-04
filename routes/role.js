@@ -4,11 +4,12 @@ async function getRoles(connection) {
 }
 
 async function addRole(connection, role) {
-	return await connection.execute('INSERT INTO role (title, salary, department_id) VALUES (?)', [role.title, role.salary, role.department_id]);
+	return await connection.execute('INSERT INTO role (title, salary, role_id) VALUES (?)', [role.title, role.salary, role.role_id]);
 }
 
 async function updateRole(connection, role) {
-	return await connection.execute('UPDATE role SET ? = ? WHERE id = ?', [role.update.col, role.update.value, role.id]);
+	let exeStr = `UPDATE role SET ${role.update.col} = ? WHERE id = ?`;
+	return await connection.execute(exeStr, [role.update.value, role.id]);
 }
 
 async function deleteRole(connection, role) {

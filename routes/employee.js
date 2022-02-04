@@ -8,7 +8,8 @@ async function addEmployee(connection, employee) {
 }
 
 async function updateEmployee(connection, employee) {
-	return await connection.execute('UPDATE employee SET ? = ? WHERE id = ?', [employee.update.col, employee.update.value, employee.id]);
+	let exeStr = `UPDATE employee SET ${employee.update.col} = ? WHERE id = ?`;
+	return await connection.execute(exeStr, [employee.update.value, employee.id]);
 }
 
 async function deleteEmployee(connection, employee) {

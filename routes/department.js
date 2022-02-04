@@ -8,7 +8,8 @@ async function addDepartment(connection, department) {
 }
 
 async function updateDepartment(connection, department) {
-	return await connection.execute('UPDATE department SET ? = ? WHERE id = ?', [department.update.col, department.update.value, department.id]);
+	let exeStr = `UPDATE department SET ${department.update.col} = ? WHERE id = ?`;
+	return await connection.execute(exeStr, [department.update.value, department.id]);
 }
 
 async function deleteDepartment(connection, department) {
