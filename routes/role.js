@@ -1,10 +1,10 @@
 async function getRoles(connection) {
-	let [rows] = await connection.execute('SELECT * FROM role');
+	let [rows] = await connection.execute('SELECT role.title, role.id, department.name AS department, role.salary FROM role LEFT JOIN department ON role.department_id = department.id');
 	return rows;
 }
 
 async function addRole(connection, role) {
-	return await connection.execute('INSERT INTO role (title, salary, role_id) VALUES (?)', [role.title, role.salary, role.role_id]);
+	return await connection.execute('INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)', [role.title, role.salary, role.department_id]);
 }
 
 async function updateRole(connection, role) {

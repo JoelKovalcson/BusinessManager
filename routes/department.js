@@ -1,5 +1,5 @@
 async function getDepartments(connection) {
-	let [rows] = await connection.execute('SELECT * FROM department');
+	let [rows] = await connection.execute("SELECT department.name AS 'Department Name', department.id FROM department");
 	return rows;
 }
 
@@ -17,7 +17,7 @@ async function deleteDepartment(connection, department) {
 }
 
 async function getEmployees(connection, department) {
-	let [rows] = await connection.execute('SELECT department.name AS department_name, role.title AS role_title, employee.first_name, employee.last_name FROM employee LEFT JOIN role ON role.id = employee.role_id LEFT JOIN department ON role.department_id = department.id WHERE department.id = ?', [department.id]);
+	let [rows] = await connection.execute('SELECT employee.first_name, employee.last_name FROM employee LEFT JOIN role ON role.id = employee.role_id LEFT JOIN department ON role.department_id = department.id WHERE department.id = ?', [department.id]);
 	return rows;
 }
 
