@@ -4,7 +4,7 @@ async function getEmployees(connection) {
 }
 
 async function addEmployee(connection, employee) {
-	return await connection.execute('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?)', [employee.first_name, employee.last_name, employee.role_id, employee.manager_id]);
+	return await connection.execute('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)', [employee.first_name, employee.last_name, employee.role_id, employee.manager_id]);
 }
 
 async function updateEmployee(connection, employee) {
