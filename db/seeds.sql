@@ -18,7 +18,7 @@ INSERT INTO employee
 	(first_name, last_name, role_id, manager_id)
 	VALUES 
 	('CEO', 'Person', 5, NULL),
-	('Boss', 'Developer', 2, 1),
+	('Boss', 'Developer', 3, 1),
 	('John', 'Doe', 2, 2),
-	('Another', 'Person', 4, NULL),
+	('Another', 'Person', 2, NULL),
 	('Marketing', 'Team', 1, 1);
