@@ -7,10 +7,10 @@ const questions = {
 		message: 'Please pick an option from the following:',
 		choices: [
 			'View All Departments',
-			//'View Department Budget',
+			'View Department Budget',
 			'View All Roles',
 			'View All Employees',
-			//"View Manager's Employees",
+			"View Manager's Employees",
 			'Add Department',
 			'Add Role',
 			'Add Employee',
@@ -20,6 +20,18 @@ const questions = {
 			//'Delete Employee',
 			'Quit'
 		]
+	}],
+	getBudget: [{
+		type: 'list',
+		name: 'departmentSelect',
+		message: 'Please choose a department to get a budget:',
+		// choices will be filled in dynamically
+	}],
+	getManagedEmployees: [{
+		type: 'list',
+		name: 'managerSelect',
+		message: 'Please choose a manager to get a list of their employees:'
+		// choices will be filled in dynamically
 	}],
 	addDepartment: [{
 		type: 'input',
@@ -88,6 +100,12 @@ const questions = {
 		}
 	],
 	updateEmployee: [
+		{
+			type: 'list',
+			name: 'updateEmployeeChoice',
+			message: 'Please choose an employee to modify:'
+			// choices will be filled in dynamically
+		},
 		{
 			type: 'list',
 			name: 'updateEmployeeField',
