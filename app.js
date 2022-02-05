@@ -52,6 +52,7 @@ async function main() {
 			});
 
 			if (checkValid[0].affectedRows != 1) console.log('Error adding department to database!');
+			else console.log(`Added ${answers.addDepartmentName} to the database.`);
 		} else if (response.mainMenu == 'Add Role') {
 			let departments = await Department.getDepartments(connection);
 
@@ -74,11 +75,16 @@ async function main() {
 			});
 
 			if (checkValid[0].affectedRows != 1) console.log('Error adding role to database!');
+			else console.log(`Added ${answers.addRoleName} to the database.`);
 		} else if (response.mainMenu == 'Add Employee') {
 			let managers = await Employee.getEmployees(connection);
 			let roles = await Role.getRoles(connection);
 
+			let roleChoices = [];
+			let roleIds = [];
 
+			let mgrChoices = [];
+			let mgrIds = [];
 
 			for (let role of roles) {
 				roleChoices.push(role.title);
@@ -91,7 +97,7 @@ async function main() {
 			}
 
 			mgrChoices.push('None');
-			mgrIds.push(NULL);
+			mgrIds.push(null);
 
 			questions.addEmployee[2].choices = roleChoices;
 			questions.addEmployee[3].choices = mgrChoices;
@@ -106,6 +112,7 @@ async function main() {
 			});
 
 			if (checkValid[0].affectedRows != 1) console.log('Error adding employee to database!');
+			else console.log(`Added ${answers.addEmployeeFirst} ${answers.addEmployeeLast} to the database.`);
 		} else if (response.mainMenu == 'Update Employee') {
 			let employees = await Employee.getEmployees(connection);
 			let roles = await Role.getRoles(connection);
@@ -159,6 +166,7 @@ async function main() {
 			})
 
 			if (checkValid[0].affectedRows != 1) console.log('Error updating employee in database!');
+			else console.log(`Updated ${update.col} to ${update.value} in the database.`)
 		}
 	}
 	// Quit the program if quit is chosen
