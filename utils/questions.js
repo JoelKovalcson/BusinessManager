@@ -10,7 +10,7 @@ const questions = {
 			'View Department Budget',
 			'View All Roles',
 			'View All Employees',
-			"View Manager's Employees",
+			//"View Manager's Employees",
 			'Add Department',
 			'Add Role',
 			'Add Employee',

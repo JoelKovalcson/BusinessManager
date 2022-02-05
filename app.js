@@ -27,9 +27,9 @@ async function main() {
 
 			let choices = [];
 			let ids = [];
-			
-			for(let department of departments) {
-				choices.push(department['Department Name']);	
+
+			for (let department of departments) {
+				choices.push(department['Department Name']);
 				ids.push(department.id);
 			}
 
@@ -46,46 +46,46 @@ async function main() {
 			console.table(await Employee.getEmployees(connection));
 		} else if (response.mainMenu == 'Add Department') {
 			let answers = await inquirer.prompt(questions.addDepartment);
-			
+
 			let checkValid = await Department.addDepartment(connection, {
 				name: answers.addDepartmentName
 			});
-			
-			if(checkValid[0].affectedRows != 1) console.log('Error adding department to database!');
+
+			if (checkValid[0].affectedRows != 1) console.log('Error adding department to database!');
 		} else if (response.mainMenu == 'Add Role') {
 			let departments = await Department.getDepartments(connection);
-			
+
 			let choices = [];
 			let ids = [];
-			
-			for(let department of departments) {
-				choices.push(department['Department Name']);	
+
+			for (let department of departments) {
+				choices.push(department['Department Name']);
 				ids.push(department.id);
 			}
-			
+
 			questions.addRole[2].choices = choices;
-			
+
 			let answers = await inquirer.prompt(questions.addRole);
-			
+
 			let checkValid = await Role.addRole(connection, {
 				title: answers.addRoleName,
 				salary: answers.addRoleSalary,
 				department_id: ids[choices.indexOf(answers.addRoleDepartment)]
 			});
 
-			if(checkValid[0].affectedRows != 1) console.log('Error adding role to database!');
+			if (checkValid[0].affectedRows != 1) console.log('Error adding role to database!');
 		} else if (response.mainMenu == 'Add Employee') {
 			let managers = await Employee.getEmployees(connection);
 			let roles = await Role.getRoles(connection);
-			
-			
 
-			for(let role of roles) {
+
+
+			for (let role of roles) {
 				roleChoices.push(role.title);
 				roleIds.push(role.id);
 			}
 
-			for(let mgr of managers) {
+			for (let mgr of managers) {
 				mgrChoices.push(`${mgr.first_name} ${mgr.last_name}`);
 				mgrIds.push(mgr.id);
 			}
@@ -95,7 +95,7 @@ async function main() {
 
 			questions.addEmployee[2].choices = roleChoices;
 			questions.addEmployee[3].choices = mgrChoices;
-			
+
 			let answers = await inquirer.prompt(questions.addEmployee);
 
 			let checkValid = await Employee.addEmployee(connection, {
@@ -105,23 +105,23 @@ async function main() {
 				manager_id: mgrIds[mgrChoices.indexOf(answers.addEmployeeManager)]
 			});
 
-			if(checkValid[0].affectedRows != 1) console.log('Error adding employee to database!');
+			if (checkValid[0].affectedRows != 1) console.log('Error adding employee to database!');
 		} else if (response.mainMenu == 'Update Employee') {
 			let employees = await Employee.getEmployees(connection);
 			let roles = await Role.getRoles(connection);
-			
+
 			let roleChoices = [];
 			let roleIds = [];
-			
+
 			let empChoices = [];
 			let empIds = [];
 
-			for(let role of roles) {
+			for (let role of roles) {
 				roleChoices.push(role.title);
 				roleIds.push(role.id);
 			}
 
-			for(let mgr of employees) {
+			for (let mgr of employees) {
 				empChoices.push(`${mgr.first_name} ${mgr.last_name}`);
 				empIds.push(mgr.id);
 			}
@@ -134,19 +134,31 @@ async function main() {
 			questions.updateEmployee[5].choices = empChoices;
 
 			let answers = await inquirer.prompt(questions.updateEmployee);
-			
+
 			let update;
-			if(answers.updateEmployeeFirst) update = {col: 'first_name', value: answers.updateEmployeeFirst};
-			else if (answers.updateEmployeeLast) update = {col: 'last_name', value: answers.updateEmployeeLast};
-			else if (answers.updateEmployeeRole) update = {col: 'role_id', value: roleIds[roleChoices.indexOf(answers.updateEmployeeRole)]};
-			else if (answers.updateEmployeeManager) update = {col: 'manager_id', value: empIds[empChoices.indexOf(answers.updateEmployeeManager)]};
-			
+			if (answers.updateEmployeeFirst) update = {
+				col: 'first_name',
+				value: answers.updateEmployeeFirst
+			};
+			else if (answers.updateEmployeeLast) update = {
+				col: 'last_name',
+				value: answers.updateEmployeeLast
+			};
+			else if (answers.updateEmployeeRole) update = {
+				col: 'role_id',
+				value: roleIds[roleChoices.indexOf(answers.updateEmployeeRole)]
+			};
+			else if (answers.updateEmployeeManager) update = {
+				col: 'manager_id',
+				value: empIds[empChoices.indexOf(answers.updateEmployeeManager)]
+			};
+
 			let checkValid = await Employee.updateEmployee(connection, {
 				update,
 				id: empIds[empChoices.indexOf(answers.updateEmployeeChoice)]
 			})
 
-			if(checkValid[0].affectedRows != 1) console.log('Error updating employee in database!');
+			if (checkValid[0].affectedRows != 1) console.log('Error updating employee in database!');
 		}
 	}
 	// Quit the program if quit is chosen
