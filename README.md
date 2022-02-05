@@ -28,7 +28,7 @@ The requirements for the project were as follows:
 
 ## Guide
 
-For a visual guide of the above steps, watch [this video]().
+For a visual guide of the above steps, watch [this video](https://youtu.be/jzpldXgL1Xk).
 
 ## What I Did
 
