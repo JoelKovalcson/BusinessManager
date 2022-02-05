@@ -139,6 +139,7 @@ const questions = {
 			when: ({
 				updateEmployeeField
 			}) => updateEmployeeField == 'Manager'
+			// choices will be filled in dynamically
 		}
 	]
 }
